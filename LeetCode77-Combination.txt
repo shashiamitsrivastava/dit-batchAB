@@ -1,0 +1,25 @@
+class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> bigList = new ArrayList<>();
+        helper(1, n, k , new ArrayList<Integer>(),bigList);
+        return bigList;
+    }
+    void helper(int start , int n, int k, List<Integer> smallList, 
+    List<List<Integer>> bigList){
+        // Base Case
+        if(smallList.size() == k){
+            bigList.add(new ArrayList<Integer>(smallList));
+            return ;
+        }
+        // Iteration / Loop
+
+        for(int i = start; i<=n ; i++){
+            if(!smallList.contains(i)){
+                smallList.add(i);
+                helper(i, n, k, smallList, bigList);
+                // Stack Fall (Undo)
+                smallList.remove(smallList.size()-1);
+            }
+        }
+    }
+}
