@@ -1,0 +1,45 @@
+class Solution {
+    boolean board[][] ;
+    boolean willIPlaceAQueenHere(int row, int col){
+        // Case - 1 Above Row
+        for(int i = row; i>=0; i--){
+            if(board[i][col]){
+                return false;
+            }
+        }
+        // case - 2 upper left diagonal
+        for(int i = row, j =col ; i>=0 && j>=0;i--, j--){
+            if(board[i][j]){
+                return false;
+            }
+        }
+
+          // case - 3 upper right diagonal
+        for(int i = row, j =col ; i>=0 && j<board[0].length;i--, j++){
+            if(board[i][j]){
+                return false;
+            }
+        }
+
+        return true;
+    }
+    public int totalNQueens(int n) {
+        board = new boolean[n][n]; // fill with false
+        return helper(0, n);
+    }
+    int helper(int row, int n){
+        if(board.length == row){
+            return 1;
+        }
+        int count = 0;
+        for(int col = 0; col<n; col++){
+            if(willIPlaceAQueenHere(row, col)){
+                board[row][col] = true; // Place a Queen
+                count = count + helper(row + 1, n);
+                // BackTrack (Undo )
+                board[row][col] = false;
+            }
+        }
+        return count;
+    }
+}
