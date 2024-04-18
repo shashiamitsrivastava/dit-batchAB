@@ -1,0 +1,39 @@
+class Solution {
+    // 2-9 
+    String keys [] = {"","", "abc", "def", "ghi", "jkl", "mno", "pqrs","tuv", "wxyz"};
+     public List<String> letterCombinations(String digits) {
+        if(digits.length()==0){
+            return new ArrayList<String>();
+        }
+        else{
+            return helper(digits);
+        }
+     }
+    
+    public List<String> helper(String digits) {
+        // Base Case
+        if(digits.length()==0){
+            List<String> list = new ArrayList<>();
+            list.add(""); // now list can be traverse
+            return list;
+        }
+        // get the single digit
+        char singleDigit = digits.charAt(0); //'2'
+        // get the index (char to int conversion)
+        int index = singleDigit - '0'; // '2' Ascii (50) and '0' Ascii 48
+        // 50 - 48  = 2
+        // get the required string of digit
+        String str = keys[index];
+        // abc traverse
+        // prepare new list
+        List<String> newList = new ArrayList<>();
+        for(int i = 0; i<str.length(); i++){
+            // Recursive Call (Branching)
+            List<String> oldList= helper(digits.substring(1));
+            for(int j = 0 ; j<oldList.size(); j++){
+                newList.add(str.charAt(i) + oldList.get(j));
+            }
+        }
+        return newList;
+    }
+}
