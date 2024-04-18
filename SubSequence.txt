@@ -1,0 +1,26 @@
+import java.util.*;
+
+class SubSeq{
+
+    static List<String> getAllSubSeq(String str){
+        // Base Case
+        if(str.length() ==0){
+            List<String> list = new ArrayList<>();
+            list.add("");
+            return list;
+
+        }
+        List<String> newList = new ArrayList<>();
+        // Small problem + Recursion
+        List<String> oldList = getAllSubSeq(str.substring(1));
+        for(int i = 0 ; i<oldList.size(); i++){
+            newList.add(oldList.get(i)); // Not Include it
+            newList.add(str.charAt(0) + oldList.get(i)); // Include it
+        }
+        return newList;
+    }
+    public static void main(String[] args) {
+       List<String> list =  getAllSubSeq("amit");
+       System.out.println(list);
+    }
+}
